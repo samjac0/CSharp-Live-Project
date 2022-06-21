@@ -4,7 +4,7 @@
 After completing the C# course, I participated in a week-long sprint. I was tasked with using C# within the .net framework to assist with a partion of a theature's website. Specifically, I was assigned to the production team, and tasked to build the pages that met narrow specifications. 
 
 ## Table of Contents
-- [Crud Functionality](#Crud-Functionality)
+- [Crud Functionality and Code-First Approach](#Crud-Functionality-and-Code-First-Approach)
 - [Redi](#Creating-The-Model-and-Form)
 - [CRUD Functionality](#CRUD-Functionality)
 - [Connect to API](#Connect-to-API)
