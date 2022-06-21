@@ -1,6 +1,4 @@
 # CSharp-Live-Project
-
-# Python Live Project
 After completing the C# course, I participated in a week-long sprint. I was tasked with using C# within the .net framework to assist with a partion of a theature's website. Specifically, I was assigned to the production team, and tasked to build the pages that met narrow specifications. 
 
 ## Table of Contents
@@ -11,70 +9,7 @@ After completing the C# course, I participated in a week-long sprint. I was task
 - [Beautiful Soup](#Beautiful-Soup)
 - [Conclusion](#Conclusion)
 
-## Creating the Basic App
-To start, I created a new application within the Django framework using PyCharm as my IDE. I created the base and home templates and then added functions to the views in order for a homepage with a navbar to render. I then registered my URLs and linked my application to the main project homepage. Most of the styling and layout for this web application was done using Bootstrap 4 with some modifications. I also added some basic animations using CSS and JavaScript.
-
-![Home](/Images/Home.png)
-
-## Creating the Model and Form
-I created an object model class with a manager and defined its attributes.
-
-models.py:
-```cs
-    Genre_Choices = (
-        ('comedy','Comedy'),
-        ('anime', 'Anime'),
-        ('horror','Horror'),
-        ('sitcom', 'Sitcom'),
-        ('musical', 'Musical'),
-        ('kids', 'Kids'),
-        ('slice of life','Slice of LIfe'),
-        ('early animation','Early Animation'),
-    )
-
-    class Cartoon(models.Model):
-        title = models.CharField(max_length=50)
-        genre = models.CharField(max_length=20, choices=Genre_Choices, default='Comedy')
-        network = models.CharField(max_length=30)
-        premier_date = models.DateField()
-        brief_description = models.TextField(max_length=1000, default="")
-
-        Cartoons = models.Manager()
-
-        def __str__(self):
-            return self.title
-```
-Next, I created a model form that includes any inputs the user needs to make. 
-
-forms.py:
-```cs
-    from django import forms
-    from .models import Cartoon
-
-    # creating our modelform
-    class CartoonForm(forms.ModelForm):
-        class Meta:
-            model = Cartoon
-            fields = "__all__"
-```
-I then made a template page for the form, as well as a view function that renders all cartoons in the database. This page only displays the title and premiere date of the cartoon in the database, so I created another view function that allows users to click on a cartoon's title, bringing them to another template that displays the additional details of that cartoon.
-
-views.py:
-```cs
-    def DisplayCartoons(request):
-        cartoon_list = Cartoon.Cartoons.all().order_by("premier_date")
-        context = {'cartoon_list': cartoon_list}
-        return render(request, 'Cartoons/Cartoons_list.html', context)
-```
-```cs
-    def DisplayDetails(request, pk):
-        item = get_object_or_404(Cartoon, pk=pk)
-        context = {'item': item}
-        return render(request, 'Cartoons/Cartoons_details.html', context)
-```
-![List Details](/GIFs/ListDetails.gif)
-
-## CRUD Functionality
+## Crud Functionality and Code-First Approach
 This view function saves the details of the cartoon to the database that the user inputs into the form.
 ```cs
     def CreateCartoon(request):
