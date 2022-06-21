@@ -1,11 +1,11 @@
-# CSharp-Live-Project
+# Csharp-Live-Project
 After completing the C# course, I participated in a week-long sprint. I was tasked with using C# within the .net framework to assist in developing a theature's website. Specifically, I was assigned to the production team, and tasked to build CRUD functionality for 'Cast Members' of the theater. 
 
 ## Table of Contents
 - [Crud Functionality and Code-First Approach](#Crud-Functionality-and-Code-First-Approach)
 - [CastMember Photo Storage and Display](#CastMember-Photo-Storage-and-Display)
 
-Readme not fininshed and cloned from previous live project. Please come back within the next two days.
+##Readme not fininshed and cloned from previous live project. Please come back within the next two days.
 
 - [CRUD Functionality](#CRUD-Functionality)
 - [Connect to API](#Connect-to-API)
@@ -170,4 +170,4 @@ views.py:
 ## Conclusion
 The Python live project provided me with my first full-scale opportunity to utilize project methodologies and gain a detailed understanding of version control. I worked with other students within an Agile framework environment on the Microsoft Azure DevOps platform. I was able to make commits, merges, and push/pulls in real-time while being aware of how to minimize merge conflicts. I participated in daily standup meetings to discuss progress and roadblocks, as well as a retrospective meeting upon completion of the app. I really enjoyed this process and look forward to utilizing everything learned from this sprint in future projects!
 
-Back to [top](#Python-Live-Project)
+Back to [top](#Csharp-Live-Project)
