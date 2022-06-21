@@ -1,5 +1,5 @@
 # CSharp-Live-Project
-After completing the C# course, I participated in a week-long sprint. I was tasked with using C# within the .net framework to assist with a partion of a theature's website. Specifically, I was assigned to the production team, and tasked to build the pages that met narrow specifications. 
+After completing the C# course, I participated in a week-long sprint. I was tasked with using C# within the .net framework to assist in developing a theature's website. Specifically, I was assigned to the production team, and tasked to build CRUD functionality for 'Cast Members' of the theater. 
 
 ## Table of Contents
 - [Crud Functionality and Code-First Approach](#Crud-Functionality-and-Code-First-Approach)
@@ -12,14 +12,36 @@ After completing the C# course, I participated in a week-long sprint. I was task
 ## Crud Functionality and Code-First Approach
 This view function saves the details of the cartoon to the database that the user inputs into the form.
 ```cs
-    def CreateCartoon(request):
-        form = CartoonForm(data=request.POST or None)
-        if request.method=='POST':
-            if form.is_valid():
-                form.save()
-                return redirect('Cartoons_home')
-        context = {'form': form}
-        return render(request, "Cartoons/Cartoons_create.html", context)
+   namespace TheatreCMS3.Areas.Prod.Models
+    {
+    public enum CastPosition
+    {
+        Actor,
+        Director,
+        Technician,
+        StageManager,
+        Other,
+    }
+    public enum ProductionName
+    {
+        Wicked,
+        Green_Eggs_and_Ham,
+        Angels_in_America,
+        The_Glass_Menagerie,
+    }
+    public class CastMember
+    {
+        public int CastMemberId { get; set; }
+        public string Name { get; set; }
+        public int? YearJoined { get; set; }
+        public CastPosition MainRole { get; set; }
+        public string Bio { get; set; }
+        public byte[] Photos { get; set; }
+        public bool CurrentMember { get; set; }
+        public string Character { get; set; }
+        public int? CastYearsLeft { get; set; }
+        public int? DebutYear { get; set; }
+        public ProductionName ProductionTitle { get; set; }
 ```
 This view function allows the user to edit/update a cartoon's details.
 ```cs
