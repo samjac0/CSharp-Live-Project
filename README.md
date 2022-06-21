@@ -3,14 +3,14 @@ After completing the C# course, I participated in a week-long sprint. I was task
 
 ## Table of Contents
 - [Crud Functionality and Code-First Approach](#Crud-Functionality-and-Code-First-Approach)
-- [Redi](#Creating-The-Model-and-Form)
+- [CastMember Photo Storage and Display](#CastMember-Photo-Storage-and-Display)
 - [CRUD Functionality](#CRUD-Functionality)
 - [Connect to API](#Connect-to-API)
 - [Beautiful Soup](#Beautiful-Soup)
 - [Conclusion](#Conclusion)
 
 ## Crud Functionality and Code-First Approach
-This view function saves the details of the cartoon to the database that the user inputs into the form.
+I created the CastMember class and built CRUD functionality through MVC. 
 ```cs
    namespace TheatreCMS3.Areas.Prod.Models
     {
@@ -36,42 +36,18 @@ This view function saves the details of the cartoon to the database that the use
         public int? YearJoined { get; set; }
         public CastPosition MainRole { get; set; }
         public string Bio { get; set; }
-        public byte[] Photos { get; set; }
+        public byte[] Photos { get; set; } //Byte Array Photo Storage
         public bool CurrentMember { get; set; }
         public string Character { get; set; }
         public int? CastYearsLeft { get; set; }
         public int? DebutYear { get; set; }
         public ProductionName ProductionTitle { get; set; }
 ```
-This view function allows the user to edit/update a cartoon's details.
-```cs
-    def UpdateItem(request, pk):
-        item = Cartoon.Cartoons.get(pk=pk)
-        form = CartoonForm(request.POST or None, instance=item)
 
-        if form.is_valid():
-            form.save()
-            return redirect('Cartoons_list')
-
-        context = {'item': item, 'form': form}
-        return render(request, 'Cartoons/Cartoons_up_date.html', context)
-```
-This view function enables a user to delete cartoons from the database.
-```cs
-    def DeleteItem(request, pk):
-        context = {}
-        item = get_object_or_404(Cartoon, pk=pk)
-
-        if request.method == "POST":
-            item.delete()
-            return redirect("Cartoons_list")
-
-        return render(request, "Cartoons/Cartoons_delete.html", context)
-```
 ![Create Update Delete](/GIFs/CreateUpdateDelete.gif)
 
-## Connect to API
-After creating a new API template, I rendered it with a view function. I then researched API documentation in order to connect the API and write a basic JSON response that allows users to search a word in the Oxford Dictionary and view its definition. I included additional functionality that saves each word and definition that was searched into a database. Next, I created a new template for displaying the previously searched words/definitions. As an extra feature, I added an input in the navbar that allows users to utilize the dictionary API. After entering a word and clicking search, they are redirected to the API template where the word that was searched and its corresponding definition are displayed.
+## CastMember Photo Storage and Display
+After building basic crud 
 
 views.py:
 ```cs
