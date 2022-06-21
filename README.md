@@ -4,6 +4,9 @@ After completing the C# course, I participated in a week-long sprint. I was task
 ## Table of Contents
 - [Crud Functionality and Code-First Approach](#Crud-Functionality-and-Code-First-Approach)
 - [CastMember Photo Storage and Display](#CastMember-Photo-Storage-and-Display)
+
+Readme not fininshed and cloned from previous live project. Please come back within the next two days.
+
 - [CRUD Functionality](#CRUD-Functionality)
 - [Connect to API](#Connect-to-API)
 - [Beautiful Soup](#Beautiful-Soup)
