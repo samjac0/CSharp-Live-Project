@@ -76,7 +76,7 @@ Subsequently, I converted it back to an image to be displayed when needed.
 
 ## CRUD styling
 Finally, using Razor, Bootstrap and CSS, I added functionality/readibilty to all CRUD pages. Design layout is as was requested by the client.
-![Cartoon Rankings](/Images/Rankings_Cartoons.png)
+![Index](/videos/giphy.gif)
 Index snippets (Cards)
 ```cs
     <div class="card-group row">
