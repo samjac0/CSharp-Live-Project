@@ -50,47 +50,35 @@ I created the CastMember class and built CRUD functionality through MVC.
 ![Create Update Delete](/GIFs/CreateUpdateDelete.gif)
 
 ## CastMember Photo Storage and Display
-After building basic crud 
+After building basic crud, I added photo storage via byte array.
 
-views.py:
-```cs
-    def OxfordAPI(request):
-        # set up api connection
-        app_id='591386c7'
-        app_key='ea768fd0e3d3a96ec8b39d08533c1f36'
-        language='en-us'
-        fields ='definitions'
-        strictMatch ='false'
-        # create empty list
-        definition=[]
-        if request.method=='POST':
-            value=request.POST['word_id'].lower()
-            # if input is blank it will display this message
-            if value=="":
-                messages.info(request, 'Please enter a search term')
-            else:
-                url ='https://od-api.oxforddictionaries.com:443/api/v2/entries/' + language + '/' + value + '?fields=' + fields + '&strictMatch=' + strictMatch;
-                info=requests.get(url,headers={'app_id':app_id, 'app_key':app_key})
-                oxford_info=info.json()
-                result=oxford_info['results'][0]['lexicalEntries'][0]['entries'][0]['senses'][0]['definitions'][0]
-                definition.append(result)
-
-                save_definition = Definition.Definitions.create(
-                    value=value,
-                    definition=definition
-                )
-                save_definition.save()
-
-            context={'value':value,'definition':definition}
-            # if input is not blank then it will return the context
-            return render(request, 'Cartoons/Cartoons_api.html', context)
-        else:
-            return render(request, 'Cartoons/Cartoons_api.html')
+CastMembersController:
+```public byte[] convertImage(HttpPostedFileBase uploadedImage)
+        {
+            byte[] imageArray;
+            using (BinaryReader br = new BinaryReader(uploadedImage.InputStream))
+            {
+                imageArray = br.ReadBytes(uploadedImage.ContentLength);
+            }
+            return imageArray;
+        }
 ```
-![Dictionary](/Images/Dictionary.png)
 
-I then created a new object model class with a manager to our models.py for saving words/definitions.
 
+Subsequently, I converted it back to an image to be displayed when needed.
+```public ActionResult Edit([Bind(Include = "CastMemberId,Name,YearJoined,MainRole,Bio,CurrentMember,Character,CastYearLeft,DebutYear,Photos,ProductionTitle")] CastMember castMember, HttpPostedFileBase uploadedImage)
+        {
+            if (ModelState.IsValid)
+            {
+                var photoByte = convertImage(uploadedImage);
+                castMember.Photos = photoByte;
+                db.Entry(castMember).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(castMember);
+        }
+```
 models.py:
 ```cs
     class Definition(models.Model):
