@@ -81,57 +81,96 @@ Subsequently, I converted it back to an image to be displayed when needed.
 ```
 
 ## CRUD styling
-Using the Python package Beautiful Soup, I parsed data from two websites to display a top ten animated series list and a top 100 animated movies list on two newly created templates that can be accessed from both the navbar and homepage.
-
-The following code scrapes the number and titles of the cartoons from Indiewire’s website where they have ranked the best animated series of all time. There are over 60 cartoons on the list and about ten are displayed per page, so I selected the specific page that named the top ten cartoons. The titles are all under "h3" tags in the HTML code.
-
-views.py:
-```cs
-    def CartoonScrape(request):
-        # Create empty list.
-        top_cartoons = []
-        # Set up BeautifulSoup.
-        source = requests.get("https://www.indiewire.com/feature/best-animated-series-all-time-cartoons-anime-tv-1202021835/5/")
-        bs = BeautifulSoup(source.content, 'html.parser')
-        # Get all the h3 tags under the div 'entry-content' from source site.
-        rankings = bs.find('div', class_='entry-content')
-        rank = rankings.find_all('h3')
-        # For loop through the h3 tags but in reverse order (because they are displayed reversed on the source page).
-        for h3 in reversed(rank):
-            titles = h3.text
-            top_cartoons.append(titles)
-        # Delete indexes 8-9 which are irrelevant h3 tags.
-        del top_cartoons[8:10]
-
-        context = {'top_cartoons': top_cartoons}
-        return render(request, 'Cartoons/Cartoons_rankings.html', context)
-```
+Finally, using Razor, Bootstrap and CSS, I added functionality/readibilty to all CRUD pages. Design layout is as was requested by the client.
 ![Cartoon Rankings](/Images/Rankings_Cartoons.png)
-
-Furthermore, the code below scrapes the ranking/rating/titles of the top 100 animated movies on the Rotten Tomatoes website.
-
-views.py:
+Index snippets (Cards)
 ```cs
-    def MovieScrape(request):
-        # Create empty list.
-        top_movies = []
-        # Set up BeautifulSoup.
-        source = requests.get("https://www.rottentomatoes.com/top/bestofrt/top_100_animation_movies/")
-        bs = BeautifulSoup(source.content, 'html.parser')
-        # Get all the "a" tags under the table 'table' from source site.
-        rankings = bs.find('table', class_='table')
-        rank = rankings.find_all('tr')
-        # For loop that iterates through all the "a" tags.
-        for tr in rank:
-            titles = tr.text
-            top_movies.append(titles)
-        # Delete index 0, which is not needed.
-        del top_movies[0]
+    <div class="card-group row">
+                    @foreach (var castMember in group) //creates a card from each model and 'group'(s) them by 'ProductionTitle'
+                    {
+                        string photo = "";
+                        if (castMember.Photos != null) //checking for null
+                        {
+                            photo = Convert.ToBase64String(castMember.Photos);
+                        }
+                        string cardEdit = Url.Action("Edit", "CastMembers", new { id = castMember.CastMemberId });
+                        string cardDelete = Url.Action("Delete", "CastMembers", new { id = castMember.CastMemberId });
+                        string cardDetails = Url.Action("Details", "CastMembers", new { id = castMember.CastMemberId });
+                    <div class="card m-1 rounded col-4 px-1" style="max-width:13rem; width: auto;">
+                        <div class="text-center">
+                            <img src="data:image/png;base64,@photo" class="rounded card-img-top CastMember--Index-Overlay" alt="...">
 
-        context = {'top_movies': top_movies}
-        return render(request, 'Cartoons/Cartoons_movies.html', context)
+                            <div class="card-body py-0">
+                                <h5 class="card-title text-black text-center pt-1" style="max-width:100%;">@Html.DisplayFor(modelItem => castMember.Name)</h5>
+                            </div>
+                        </div>
+                        <div class="btn-group-sm CastMember--Index-overlayButtonsBlock">
+                            <a href="@cardDetails" class="btn btn-sm CastMember--buttons-secondary-color">
+                                <i class="fa fa-info-circle"></i>
+                                <br />
+                                Details
+                            </a>
+                            <a href="@cardEdit" class="btn CastMember--buttons-secondary-color">
+                                <i class="fa fa-file"></i>
+                                <br />
+                                Edit
+                            </a>
+                            <a href="@cardDelete" class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                                <br />
+                                Delete
+                            </a>
 ```
-![Movie Rankings](/Images/Rankings_Movies.png)
+Index CSS
+```cs
+    .CastMember--buttons-secondary-color {
+    color: #fff;
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+
+    .CastMember--buttons-secondary-color:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+
+.CastMember--Index-Overlay {
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+    .CastMember--Index-Overlay:hover {
+        opacity: 0.5;
+        background-color: black;
+    }
+
+.CastMember--Index-overlayButtonsBlock {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    opacity: 0;
+    background: rgb(0,0,0, 0.5);
+    transition: all 0.4s ease;
+}
+
+    .CastMember--Index-overlayButtonsBlock:before {
+        content: ' ';
+        /* adjust 'height' to position overlay content vertically */
+        display: block;
+        height: 30%;
+    }
+
+    .CastMember--Index-overlayButtonsBlock:hover {
+        opacity: 1;
+        transition: all 0.4s ease;
+    }
+
+```
 
 ## Conclusion
 The Python live project provided me with my first full-scale opportunity to utilize project methodologies and gain a detailed understanding of version control. I worked with other students within an Agile framework environment on the Microsoft Azure DevOps platform. I was able to make commits, merges, and push/pulls in real-time while being aware of how to minimize merge conflicts. I participated in daily standup meetings to discuss progress and roadblocks, as well as a retrospective meeting upon completion of the app. I really enjoyed this process and look forward to utilizing everything learned from this sprint in future projects!
