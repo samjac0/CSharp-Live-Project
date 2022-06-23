@@ -47,7 +47,7 @@ I created the CastMember class and built CRUD functionality through MVC.
         public ProductionName ProductionTitle { get; set; }
 ```
 
-![Create Update Delete](/GIFs/CreateUpdateDelete.gif)
+
 
 ## CastMember Photo Storage and Display
 After building basic crud, I added photo storage via byte array.
@@ -79,30 +79,8 @@ Subsequently, I converted it back to an image to be displayed when needed.
             return View(castMember);
         }
 ```
-models.py:
-```cs
-    class Definition(models.Model):
-        value = models.CharField(max_length=50)
-        definition = models.TextField(max_length=100)
 
-        Definitions = models.Manager()
-
-        def __str__(self):
-            return self.value
-```
-Finally, I added a view function for rendering all the words/definitions in the database.
-
-views.py:
-```cs
-    def DisplayDefinitions(request):
-        definition_list = Definition.Definitions.all().order_by("value")
-        context = {'definition_list': definition_list}
-        return render(request, 'Cartoons/Cartoons_definitions.html', context)
-```
-
-![Definitions](/Images/Definitions.png)
-
-## Beautiful Soup
+## CRUD styling
 Using the Python package Beautiful Soup, I parsed data from two websites to display a top ten animated series list and a top 100 animated movies list on two newly created templates that can be accessed from both the navbar and homepage.
 
 The following code scrapes the number and titles of the cartoons from Indiewire’s website where they have ranked the best animated series of all time. There are over 60 cartoons on the list and about ten are displayed per page, so I selected the specific page that named the top ten cartoons. The titles are all under "h3" tags in the HTML code.
